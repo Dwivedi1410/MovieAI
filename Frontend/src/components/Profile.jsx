@@ -95,12 +95,17 @@ export default function Profile() {
                                     </div>
                                     
                                     <div className="flex items-center gap-4 p-4 bg-white/5 rounded-lg">
-                                        <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center">
+                                        <div className="w-10 h-10 bg-gradient-to-r from-green-500 px-2 md:px-0 to-teal-500 rounded-full flex items-center justify-center">
                                             <span className="text-white font-semibold">📧</span>
                                         </div>
-                                        <div>
+                                        <div className="min-w-0 flex-1">
                                             <p className="text-gray-400 text-sm">Email</p>
-                                            <p className="text-white font-medium">{email || "Not available"}</p>
+                                            <p className="text-white font-medium truncate">
+                                                {email ? 
+                                                    email.split(' ').slice(0, 14).join(' ') + (email.split(' ').length > 14 ? '...' : '')
+                                                    : "Not available"
+                                                }
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
