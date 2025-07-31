@@ -19,7 +19,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const user = useSelector((store) => store.user);
+  const user = useSelector((store) => store.user.user);
 
   if (user) {
     return <Navigate to="/" />;

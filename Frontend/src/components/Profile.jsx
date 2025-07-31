@@ -6,13 +6,35 @@ import { removeUser } from "../utils/userSlice";
 import Header from "./Header";
 
 export default function Profile() {
-    const user = useSelector((store) => store.user);
+    const { user, isLoading } = useSelector((store) => store.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    if(!user){
-        return (<h1>Loading ....</h1>)
+    
+    // Show loading state while user data is being fetched
+    if(isLoading || !user){
+        return (
+            <div className="relative min-h-screen">
+                <Header />
+                <div className="absolute inset-0">
+                    <img 
+                        src={LOGIN_PAGE_BACKGROUND_IMAGE} 
+                        alt="Background"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/60"></div>
+                </div>
+                <div className="relative z-10 min-h-screen flex items-center justify-center">
+                    <div className="text-white text-2xl font-semibold">
+                        {isLoading ? "Loading..." : "Please log in to view your profile"}
+                    </div>
+                </div>
+            </div>
+        );
     }
+    
+    // Only destructure after we confirm user exists
     const { username, email } = user;
+    
     const handleLogout = async () => {
         try {
             const BASE_URL = import.meta.env.VITE_API_BASE_URL;

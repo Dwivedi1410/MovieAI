@@ -8,7 +8,7 @@ export default function ResetPassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const user = useSelector((store) => store.user);
+  const user = useSelector((store) => store.user.user);
   console.log("This is the user from reset password page", user);
   const userId = user?._id;
   console.log("This is the userId from reset password page", userId);

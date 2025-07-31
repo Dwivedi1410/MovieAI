@@ -4,7 +4,7 @@ import UpperDivision from "./UpperDivision";
 import LowerDivision from "./LowerDivision";
 
 export default function Home(){
-    const user = useSelector((store) => store.user);
+    const { user } = useSelector((store) => store.user);
 
     if(!user){
         return <Navigate to="/authentication" />

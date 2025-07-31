@@ -212,7 +212,7 @@ const SendEmailOtp = asyncHandler(async (req, res) => {
 const VerifyEmail = asyncHandler(async (req, res) => {
   const { otp, email } = req.body;
  
-
+  console.log(`This is the otp that we get from the frontend ${otp} and this is the email ${email}`);
   if (!otp) {
     throw new ApiError(400, "OTP is required");
   }
@@ -224,7 +224,7 @@ const VerifyEmail = asyncHandler(async (req, res) => {
   if(!user){
     throw new ApiError(401, "User not found");
   }
-
+  console.log("This is the otp from the database", user.emailVerificationOTP)
   if (user.emailVerificationOTP !== otp) {
     throw new ApiError(400, "Invalid OTP");
   }
