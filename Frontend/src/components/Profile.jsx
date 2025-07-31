@@ -9,6 +9,9 @@ export default function Profile() {
     const user = useSelector((store) => store.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    if(!user){
+        return (<h1>Loading ....</h1>)
+    }
     const { username, email } = user;
     const handleLogout = async () => {
         try {
