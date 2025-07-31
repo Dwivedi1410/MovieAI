@@ -12,7 +12,6 @@ import ResetPassword from "./components/ResetPassword";
 import AiSearch from "./components/AiSearch";
 import MovieDetails from "./components/MovieDetails";
 
-
 const App = () => {
   const AppRouter = createBrowserRouter([
     {
@@ -21,13 +20,25 @@ const App = () => {
       children: [
         {
           index: true,
-          element: <Home />
+          element: <Home />,
         },
         {
           path: "/home",
-          element: <Home />
-        }
-      ]
+          element: <Home />,
+        },
+        {
+          path: "/home/ai-search",
+          element: <AiSearch />,
+        },
+        {
+          path: "/movie-detail/:id",
+          element: <MovieDetails />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
+        },
+      ],
     },
     {
       path: "/authentication",
@@ -35,34 +46,22 @@ const App = () => {
       children: [
         {
           index: true,
-          element: <Login />
+          element: <Login />,
         },
         {
           path: "/authentication/email-verification",
-          element: <EmailVerification />
+          element: <EmailVerification />,
         },
         {
           path: "/authentication/otp-verification",
-          element: <OtpVerification />
+          element: <OtpVerification />,
         },
         {
           path: "/authentication/set-new-password",
-          element: <ResetPassword />
-        }
-      ]
+          element: <ResetPassword />,
+        },
+      ],
     },
-    {
-      path: "/home/ai-search",
-      element: <AiSearch/>
-    },
-    {
-      path: "/movie-detail/:id",
-      element: <MovieDetails/>
-    },
-    {
-      path: "/profile",
-      element: <Profile />
-    }
   ]);
 
   return (

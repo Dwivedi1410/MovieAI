@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { LOGIN_PAGE_BACKGROUND_IMAGE } from "../utils/constants";
 import axios from "axios";
 import { removeUser } from "../utils/userSlice";
-import Header from "./Header";
 
 export default function Profile() {
     const { user } = useSelector((store) => store.user);
@@ -53,7 +52,6 @@ export default function Profile() {
   
     return (
         <div className="relative min-h-screen">
-            <Header />
             <div className="absolute inset-0">
                 <img 
                     src={LOGIN_PAGE_BACKGROUND_IMAGE} 

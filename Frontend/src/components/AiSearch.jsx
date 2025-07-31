@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { GoogleGenAI } from "@google/genai";
 import { LOGIN_PAGE_BACKGROUND_IMAGE } from "../utils/constants";
-import Header from "./Header";
 
 const AiSearch = () => {
   const inputRequest = useRef(null);
@@ -49,7 +48,6 @@ const AiSearch = () => {
 
   return (
     <div className="relative min-h-screen">
-      <Header />
       <div className="absolute inset-0">
         <img 
           src={LOGIN_PAGE_BACKGROUND_IMAGE} 
