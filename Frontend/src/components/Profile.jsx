@@ -6,12 +6,12 @@ import { removeUser } from "../utils/userSlice";
 import Header from "./Header";
 
 export default function Profile() {
-    const { user, isLoading } = useSelector((store) => store.user);
+    const { user } = useSelector((store) => store.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
-    // Show loading state while user data is being fetched
-    if(isLoading || !user){
+    // Show message if user is not logged in
+    if(!user){
         return (
             <div className="relative min-h-screen">
                 <Header />
@@ -25,7 +25,7 @@ export default function Profile() {
                 </div>
                 <div className="relative z-10 min-h-screen flex items-center justify-center">
                     <div className="text-white text-2xl font-semibold">
-                        {isLoading ? "Loading..." : "Please log in to view your profile"}
+                        Please log in to view your profile
                     </div>
                 </div>
             </div>

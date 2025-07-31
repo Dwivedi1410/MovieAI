@@ -1,34 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { HEADER_LOGO, USER_PROFILE_ICON } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { addUser, setLoading, setError } from "../utils/userSlice";
-import { useEffect } from "react";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { user, isLoading } = useSelector((store) => store.user);
-  const dispatch = useDispatch();
-
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-  
-  useEffect(() => {
-    if(!user && !isLoading){
-      dispatch(setLoading(true));
-      axios
-      .get(`${BASE_URL}/api/v1/user/profile`, { withCredentials: true })
-      .then((res) => {
-        console.log("This is the response that we get from the userProfile", res);
-        dispatch(addUser(res.data.data));
-      })
-      .catch((error) => {
-        console.log("Error", error);
-        dispatch(setError(error.message));
-      });
-    }
-    
-  }, [user, isLoading, dispatch]);
+  const { user } = useSelector((store) => store.user);
 
   const handleProfileIconClick = () => {
     if (!user) {

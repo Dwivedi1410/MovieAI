@@ -159,8 +159,8 @@ const SendEmailOtp = asyncHandler(async (req, res) => {
   console.log("Normalized email:", normalizedEmail);
 
   // Debug: Check all users in database
-  const allUsers = await User.find({});
-  console.log("All users in database:", allUsers.map(u => ({ email: u.email, username: u.username })));
+
+  // console.log("All users in database:", allUsers.map(u => ({ email: u.email, username: u.username })));
 
   const user = await User.findOne({email: normalizedEmail});
   console.log("Found user:", user);
@@ -184,12 +184,18 @@ const SendEmailOtp = asyncHandler(async (req, res) => {
   console.log("This is the data that we get after saving the otp and expiry time", data);
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.GMAIL_USERNAME,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
-  });
+  host: process.env.SMTP_SERVER,
+  port: process.env.SMTP_PORT,
+  secure: false, // Use explicit TLS
+  requireTLS: true, // Force TLS
+  auth: {
+    user: process.env.SMTP_USERNAME,
+    pass: process.env.SMTP_PASSWORD
+  },
+  tls: {
+    ciphers: 'SSLv3' // Bypass security restrictions
+  }
+});
 
   const mailOptions = {
     from: process.env.GMAIL_USERNAME,
