@@ -3,11 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { LOGIN_PAGE_BACKGROUND_IMAGE } from "../utils/constants";
 import axios from "axios";
 import { removeUser } from "../utils/userSlice";
+import Header from "./Header";
 
 export default function Profile() {
-    const { user } = useSelector((store) => store.user);
+    const userState = useSelector((store) => store.user);
+    const user = userState?.user; // Safely access user property
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    console.log("This is the user from the profile page", user);
     
     // Show message if user is not logged in
     if(!user){
@@ -33,6 +37,8 @@ export default function Profile() {
     
     // Only destructure after we confirm user exists
     const { username, email } = user;
+    console.log("Username:", username);
+    console.log("Email:", email);
     
     const handleLogout = async () => {
         try {
@@ -49,9 +55,9 @@ export default function Profile() {
         }
     };
 
-  
     return (
         <div className="relative min-h-screen">
+            <Header />
             <div className="absolute inset-0">
                 <img 
                     src={LOGIN_PAGE_BACKGROUND_IMAGE} 
