@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { removeUser } from "../utils/userSlice";
 
 export default function ResetPassword() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user.user);
   // console.log("This is the user from reset password page", user);
@@ -32,6 +34,7 @@ export default function ResetPassword() {
 
         // console.log(response.data);
         setError(null);
+        dispatch(removeUser());
         navigate("/authentication");
     }
     catch(err){
