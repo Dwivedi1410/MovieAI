@@ -8,17 +8,16 @@ export const verifyJWT = asyncHandler( async (req, res, next) => {
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
 
         if(!token){
-            throw new ApiError(401, "User not found buddy4");
+            throw new ApiError(401, "User not found");
         }
     
         const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 
-        // console.log("This is the decoded token in the auth middleware", decodedToken);
     
         const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
     
         if(!user){
-            throw new ApiError(401, "User not found  buddy5");
+            throw new ApiError(401, "User not found");
         }
     
         req.user = user;

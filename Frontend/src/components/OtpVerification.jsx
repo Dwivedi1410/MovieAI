@@ -16,7 +16,7 @@ export default function OtpVerification() {
   const email = location.state?.email;
  
 
-  console.log("This is the value of forget Password from otp verification page", forgetPassword)
+  // console.log("This is the value of forget Password from otp verification page", forgetPassword)
 
   const handleOtpSubmit =  async (e) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ export default function OtpVerification() {
     setError(null);
     
     const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-    console.log("BASE_URL:", BASE_URL);
+    // console.log("BASE_URL:", BASE_URL);
 
     try {
       const response = await axios.post(`${BASE_URL}/api/v1/user/verify_email`, {
@@ -41,8 +41,8 @@ export default function OtpVerification() {
       });
       
       dispatch(addUser(response.data.data.user));
-      console.log("API Response:", response?.data?.data?.user);
-      console.log("forgetPassword value:", forgetPassword);
+      // console.log("API Response:", response?.data?.data?.user);
+      // console.log("forgetPassword value:", forgetPassword);
       
       if(forgetPassword) {
         navigate("/authentication/set-new-password")

@@ -44,7 +44,7 @@ const Login = () => {
 
     if (isSignInPage) {
       const loginResponse = await loginUserFunction(email, password);
-      console.log("This is the login response", loginResponse);
+      // console.log("This is the login response", loginResponse);
 
       if (loginResponse && loginResponse.success === false) {
         setError(loginResponse.message || "Login failed");
@@ -61,7 +61,7 @@ const Login = () => {
       dispatch(addUser(loginResponse.data));
     } else {
       const registerResponse = await registerUserFunction(name, email, password);
-      console.log("This is the register response", registerResponse);
+      // console.log("This is the register response", registerResponse);
 
       if (registerResponse && registerResponse.success === false) {
         setError(registerResponse.message || "Registration failed");

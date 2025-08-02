@@ -11,7 +11,6 @@ export default function EmailVerification() {
 
   const forgetPassword = location.state?.forgetPassword;
 
-  console.log("This is the value of forget Password", forgetPassword)
 
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
@@ -23,10 +22,8 @@ export default function EmailVerification() {
       return;
     }
 
-    console.log(normalizedEmail)
   
     const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-    console.log(BASE_URL)
     axios.post(
       `${BASE_URL}/api/v1/user/send-otp`,
       { email: normalizedEmail },
@@ -35,12 +32,10 @@ export default function EmailVerification() {
       }
     )
     .then((res) => {
-      console.log(res);
       setError(null);
       navigate("/authentication/otp-verification", { state: { forgetPassword, email: normalizedEmail } });
     })
     .catch((err) => {
-      console.log(err);
       setError(err?.response?.data?.message || "An error occurred.");
     });
   

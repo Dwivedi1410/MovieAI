@@ -8,10 +8,9 @@ import axios from "axios";
 const Body = () => {
   const dispatch = useDispatch();
   const userState = useSelector((store) => store.user);
-  const user = userState?.user; // Safely access user property
+  const user = userState?.user;
 
   useEffect(() => {
-    // Check if user is authenticated on app load
     const checkAuthStatus = async () => {
       if (!user) {
         try {
@@ -25,7 +24,6 @@ const Body = () => {
           }
         } catch (error) {
           console.log("User not authenticated:", error.message);
-          // User is not authenticated, don't do anything
         }
       }
     };

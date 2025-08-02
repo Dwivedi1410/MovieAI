@@ -8,7 +8,7 @@ const useNowPlayingMoviesData = () => {
     const movieData = async() => {
         const data = await fetch("https://api.themoviedb.org/3/movie/now_playing", OPTIONS);
         const json = await data.json();
-        console.log("This is the data of Now Playing Movies", json?.results);
+        // console.log("This is the data of Now Playing Movies", json?.results);
         dispatch(addNowPlayingMovies(json?.results));
     }
     

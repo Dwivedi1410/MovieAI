@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
   const userState = useSelector((store) => store.user);
-  const user = userState?.user; // Safely access user property
+  const user = userState?.user;
 
   const handleProfileIconClick = () => {
     if (!user) {

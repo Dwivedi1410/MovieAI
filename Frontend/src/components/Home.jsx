@@ -15,9 +15,9 @@ export default function Home(){
     useUpComingMoviesData();
 
     const movieData = useSelector((store) => store.movie);
-    console.log("This is the movie data in Home Page", movieData);
+    // console.log("This is the movie data in Home Page", movieData);
 
-    // Check if all movie categories are loaded
+
     const isDataLoading = !movieData.nowPlayingMovies || 
                          !movieData.popularMovies || 
                          !movieData.topRatedMovies || 

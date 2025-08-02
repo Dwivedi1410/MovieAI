@@ -7,13 +7,13 @@ import Header from "./Header";
 
 export default function Profile() {
     const userState = useSelector((store) => store.user);
-    const user = userState?.user; // Safely access user property
+    const user = userState?.user;
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    console.log("This is the user from the profile page", user);
-    
-    // Show message if user is not logged in
+    // console.log("This is the user from the profile page", user);
+    // console.log(user?.user?.username)
+
     if(!user){
         return (
             <div className="relative min-h-screen">
@@ -34,11 +34,11 @@ export default function Profile() {
             </div>
         );
     }
-    
-    // Only destructure after we confirm user exists
-    const { username, email } = user;
-    console.log("Username:", username);
-    console.log("Email:", email);
+
+    const username = user?.user?.username || user?.username || "Not available";
+    const email = user?.user?.email || user?.email || "Not available";
+    // console.log("Username:", username);
+    // console.log("Email:", email);
     
     const handleLogout = async () => {
         try {
@@ -101,8 +101,8 @@ export default function Profile() {
                                         <div className="min-w-0 flex-1">
                                             <p className="text-gray-400 text-sm">Email</p>
                                             <p className="text-white font-medium truncate">
-                                                {email ? 
-                                                    email.split(' ').slice(0, 14).join(' ') + (email.split(' ').length > 14 ? '...' : '')
+                                                {email !== "Not available" ? 
+                                                    email.length > 30 ? email.substring(0, 30) + '...' : email
                                                     : "Not available"
                                                 }
                                             </p>

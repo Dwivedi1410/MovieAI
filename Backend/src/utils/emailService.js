@@ -1,14 +1,13 @@
 import nodemailer from "nodemailer";
 import sgMail from "@sendgrid/mail";
 
-// Configure SendGrid
+
 if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 }
 
 export const sendEmail = async (to, subject, html) => {
   try {
-    // Try SendGrid first if API key is available
     if (process.env.SENDGRID_API_KEY) {
       const msg = {
         to,
@@ -21,8 +20,6 @@ export const sendEmail = async (to, subject, html) => {
       console.log("Email sent via SendGrid:", response[0].statusCode);
       return { success: true, service: "SendGrid" };
     }
-    
-    // Fallback to Gmail
     if (process.env.GMAIL_USERNAME && process.env.GMAIL_APP_PASSWORD) {
       const transporter = nodemailer.createTransport({
         service: "gmail",

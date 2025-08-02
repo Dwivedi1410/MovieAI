@@ -28,7 +28,6 @@ const RegisterUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All required fields must be provided.");
   }
 
-  // Normalize email to ensure consistency
   const normalizedEmail = email.toLowerCase().trim();
 
   const existingUser = await User.findOne({ $or: [{ username }, { email: normalizedEmail }] });
@@ -42,8 +41,6 @@ const RegisterUser = asyncHandler(async (req, res) => {
     email: normalizedEmail,
     password,
   });
-
-  // console.log("This is data that is returned to me bu the user", user);
 
   const createdUser = await User.findById(user._id).select("-password -refreshToken");
 
@@ -59,17 +56,13 @@ const RegisterUser = asyncHandler(async (req, res) => {
 const LoginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  console.log("Hello from the loginUser controller")
 
   if ([email, password].some((field) => field?.trim() === "")) {
     throw new ApiError(400, "All required fields must be provided.");
   }
 
-  // Normalize email for consistent searching
   const normalizedEmail = email.toLowerCase().trim();
   const user = await User.findOne({ email: normalizedEmail });
-
-  console.log("This is the user that we get from the database when we try to login", user);
 
   if (!user) {
     throw new ApiError(401, "Invalid email or password");
@@ -85,7 +78,6 @@ const LoginUser = asyncHandler(async (req, res) => {
 
   const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
 
-  console.log("NODDDDE_ENVIRONMENT", process.env.NODE_ENVIRONMENT);
 
   const options = {
     httpOnly: true,
@@ -113,10 +105,6 @@ const LoginUser = asyncHandler(async (req, res) => {
 const LogoutUser = asyncHandler(async (req, res) => {
   const user = req.user;
 
-  console.log(
-    "This is the user that we get from the request in the logout controller which is given by the auth middleware",
-    user
-  );
 
   await User.findByIdAndUpdate(
     user._id,
@@ -147,7 +135,6 @@ const LogoutUser = asyncHandler(async (req, res) => {
 const SendEmailOtp = asyncHandler(async (req, res) => {
   const {email} = req.body;
 
-  console.log("Extracted email:", email);
   
   if (!email || email.trim() === "") {
     throw new ApiError(400, "Email is required");
@@ -155,15 +142,10 @@ const SendEmailOtp = asyncHandler(async (req, res) => {
 
   
   const normalizedEmail = email.toLowerCase().trim();
-  console.log("Original email:", email);
-  console.log("Normalized email:", normalizedEmail);
 
-  // Debug: Check all users in database
-
-  // console.log("All users in database:", allUsers.map(u => ({ email: u.email, username: u.username })));
 
   const user = await User.findOne({email: normalizedEmail});
-  console.log("Found user:", user);
+
 
   if(!user){
     throw new ApiError(401, "User not found. Please check your email or register first.");
@@ -172,16 +154,12 @@ const SendEmailOtp = asyncHandler(async (req, res) => {
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const otpExpiry = Date.now() + 10 * 60 * 1000;
 
-  console.log("this is the generated otp", otp);
-  console.log("this is expiration time of the otp", otpExpiry);
 
   user.emailVerified = false;
   user.emailVerificationOTP = otp;
   user.emailVerificationExpiry = otpExpiry;
 
   const data = await user.save({ validateBeforeSave: false });
-
-  console.log("This is the data that we get after saving the otp and expiry time", data);
 
 const transporter = nodemailer.createTransport({
 
@@ -218,19 +196,17 @@ const transporter = nodemailer.createTransport({
 const VerifyEmail = asyncHandler(async (req, res) => {
   const { otp, email } = req.body;
  
-  console.log(`This is the otp that we get from the frontend ${otp} and this is the email ${email}`);
   if (!otp) {
     throw new ApiError(400, "OTP is required");
   }
 
-  // Normalize email for consistent searching
   const normalizedEmail = email.toLowerCase().trim();
   const user = await User.findOne({email: normalizedEmail});
 
   if(!user){
     throw new ApiError(401, "User not found");
   }
-  console.log("This is the otp from the database", user.emailVerificationOTP)
+
   if (user.emailVerificationOTP !== otp) {
     throw new ApiError(400, "Invalid OTP");
   }
@@ -245,7 +221,6 @@ const VerifyEmail = asyncHandler(async (req, res) => {
 
   const data = await user.save({ validateBeforeSave: false });
 
-  console.log("This is the data we get after the email is verified", data);
 
   return res.status(200).json(new ApiResponse(200, {
     user
@@ -255,15 +230,12 @@ const VerifyEmail = asyncHandler(async (req, res) => {
 const SetNewPassword = asyncHandler(async (req, res) => {
   const { newPassword, userId } = req.body;
 
-  console.log("this is the userId that i get from the reset password page", userId);
 
   const user = await User.findById(userId).select("-password -refreshToken");
 
   if(!user){
     throw new ApiError(401, "User not found");
   }
-
-  console.log("This is the data of the user that we get from the auth middleware", user);
 
   if (newPassword.trim() === "") {
     throw new ApiError(400, "Password is required");
@@ -276,8 +248,6 @@ const SetNewPassword = asyncHandler(async (req, res) => {
   user.password = newPassword;
 
   const data = await user.save({ validateBeforeSave: false });
-
-  console.log("this is the data that we get after setting the new password", data);
 
   return res.status(200).json(new ApiResponse(200, {}, "Password set successfully"));
 });

@@ -9,9 +9,9 @@ export default function ResetPassword() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const user = useSelector((store) => store.user.user);
-  console.log("This is the user from reset password page", user);
+  // console.log("This is the user from reset password page", user);
   const userId = user?._id;
-  console.log("This is the userId from reset password page", userId);
+  // console.log("This is the userId from reset password page", userId);
   const handleSubmit = async(e) => {
     e.preventDefault();
 
@@ -30,7 +30,7 @@ export default function ResetPassword() {
             withCredentials: true
         })
 
-        console.log(response.data);
+        // console.log(response.data);
         setError(null);
         navigate("/authentication");
     }

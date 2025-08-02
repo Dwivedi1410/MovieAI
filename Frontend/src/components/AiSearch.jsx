@@ -31,11 +31,9 @@ const AiSearch = () => {
       let data = response?.candidates[0]?.content?.parts[0]?.text;
       
       if (data) {
-        // Remove brackets and split by comma
         data = data.replace(/[[\]]/g, '').trim();
         const movieArray = data.split(',').map(movie => movie.trim());
         
-        console.log("Movie Array:", movieArray);
         setSearchResults(movieArray);
       }
     } catch (error) {
