@@ -40,7 +40,6 @@ export default function OtpVerification() {
         withCredentials: true
       });
       
-      dispatch(addUser(response.data.data.user));
       // console.log("API Response:", response?.data?.data?.user);
       // console.log("forgetPassword value:", forgetPassword);
       
