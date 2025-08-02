@@ -183,19 +183,19 @@ const SendEmailOtp = asyncHandler(async (req, res) => {
 
   console.log("This is the data that we get after saving the otp and expiry time", data);
 
-  const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_SERVER,
-  port: process.env.SMTP_PORT,
-  secure: false, // Use explicit TLS
-  requireTLS: true, // Force TLS
-  auth: {
-    user: process.env.SMTP_USERNAME,
-    pass: process.env.SMTP_PASSWORD
-  },
-  tls: {
-    ciphers: 'SSLv3' // Bypass security restrictions
-  }
-});
+const transporter = nodemailer.createTransport({
+
+    service: "gmail",
+
+    auth: {
+
+      user: process.env.GMAIL_USERNAME,
+
+      pass: process.env.GMAIL_APP_PASSWORD,
+
+    },
+
+  });
 
   const mailOptions = {
     from: process.env.GMAIL_USERNAME,
