@@ -4,8 +4,6 @@ import MovieList from "./MovieList";
 const LowerDivision = () => {
     const movieList = useSelector((store) => store.movie);
 
-    if(!movieList) return;
-
   return (
     <div className="bg-black">
       <div className="-mt-10 sm:-mt-20 md:-mt-10">
