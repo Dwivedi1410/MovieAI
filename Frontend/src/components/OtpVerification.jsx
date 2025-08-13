@@ -15,7 +15,7 @@ export default function OtpVerification() {
   const forgetPassword = location.state?.forgetPassword;
   const email = location.state?.email;
  
-
+  // console.log("This is the email from otp verification page", email);
   // console.log("This is the value of forget Password from otp verification page", forgetPassword)
 
   const handleOtpSubmit =  async (e) => {
@@ -42,9 +42,16 @@ export default function OtpVerification() {
       
       // console.log("API Response:", response?.data?.data?.user);
       // console.log("forgetPassword value:", forgetPassword);
+
+      // dispatch(addUser(response?.data?.data?.user));
+      // const userID = response?.data?.data?.user?._id;
+      // console.log("This is the userID from otp verification page", userID);
+
+      const userID = response?.data?.data?.user?._id;
+      // console.log("This is the userID from otp verification page", userID);
       
       if(forgetPassword) {
-        navigate("/authentication/set-new-password")
+        navigate(`/authentication/set-new-password/${userID}`);
       } else {
         navigate("/")
       }

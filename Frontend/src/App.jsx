@@ -57,7 +57,7 @@ const App = () => {
           element: <OtpVerification />,
         },
         {
-          path: "/authentication/set-new-password",
+          path: "/authentication/set-new-password/:id",
           element: <ResetPassword />,
         },
       ],

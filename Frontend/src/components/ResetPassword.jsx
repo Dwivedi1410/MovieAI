@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
 
 export default function ResetPassword() {
@@ -10,10 +10,13 @@ export default function ResetPassword() {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((store) => store.user.user);
+  // const user = useSelector((store) => store.user.user);
   // console.log("This is the user from reset password page", user);
-  const userId = user?._id;
+  // const userId = user?._id;
   // console.log("This is the userId from reset password page", userId);
+
+  const {id} = useParams();
+  // console.log("This is the userId from reset password page", id);
   const handleSubmit = async(e) => {
     e.preventDefault();
 
@@ -27,7 +30,7 @@ export default function ResetPassword() {
     try{
         const response = await axios.post(`${BASE_URL}/api/v1/user/new-password`, {
             newPassword,
-            userId
+            userId: id
         }, {
             withCredentials: true
         })

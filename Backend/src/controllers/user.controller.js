@@ -230,6 +230,9 @@ const VerifyEmail = asyncHandler(async (req, res) => {
 const SetNewPassword = asyncHandler(async (req, res) => {
   const { newPassword, userId } = req.body;
 
+  // console.log("This is the userId from backend", userId);
+  // console.log("This is the newPassword from backend", newPassword);
+
 
   const user = await User.findById(userId).select("-password -refreshToken");
 
