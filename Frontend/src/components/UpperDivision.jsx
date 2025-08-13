@@ -8,7 +8,7 @@ export default function UpperDivision(){
   
     if (!movieData ||  !movieData.length) return null;
     
-    const firstMovie = movieData[1];
+    const firstMovie = movieData[3];
 
 
     return(
